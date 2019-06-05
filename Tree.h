@@ -215,27 +215,54 @@ private:
         t = nullptr;
     }
     
-    void printBlank(int blankNum) const{
-        for (int i = 0; i < blankNum; i++) {
-            cout << "  ";
+    // Internal method to print a subtree rooted at t in sorted order
+    void printTree(AVLNode *t, int blankNum) const{
+        int cnt = blankNum;
+        while (cnt--) {
+            cout << " ";
+        }
+        if (t->left == nullptr && t->right == nullptr) {
+            cout << "Leaf(" << t->element << ")" << endl;
+        }
+        else{
+            cout << "Node(" << t->element << ", h=" << t->height << "):" << endl;
+            if (t->left != nullptr) {
+                printTree(t->left, blankNum + 2);
+            }else{
+                cnt = blankNum + 2;
+                while (cnt--) {
+                    cout << " ";
+                }
+                cout << "Null" << endl;
+            }
+            
+            if (t->right != nullptr) {
+                printTree(t->right, blankNum + 2);
+            }else{
+                cnt = blankNum + 2;
+                while (cnt--) {
+                    cout << " ";
+                }
+                cout << "Null" << endl;
+            }
         }
     }
     
-    // Internal method to print a subtree rooted at t in sorted order
-    void printTree(AVLNode *t) const{
-        int depth = 0;
-        if (t != nullptr) {
-            printBlank(depth);
-            if(t->height == 0){
-                cout << "Leaf(" << t->element << ")" << endl;
-            }else{
-                cout << "Node(" << t->element << ", h=" << t->height << "):" << endl;
-                depth++;
-            }
-            printTree(t->left);
-            printTree(t->right);
-        }
-    }
+//    // Internal method to print a subtree rooted at t in sorted order
+//    void printTree(AVLNode *t) const{
+//        int depth = 0;
+//        if (t != nullptr) {
+//            printBlank(depth);
+//            if(t->height == 0){
+//                cout << "Leaf(" << t->element << ")" << endl;
+//            }else{
+//                cout << "Node(" << t->element << ", h=" << t->height << "):" << endl;
+//                depth++;
+//            }
+//            printTree(t->left);
+//            printTree(t->right);
+//        }
+//    }
     
     // Internal method to clone subtree
     AVLNode * clone(AVLNode *t) const{

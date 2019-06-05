@@ -53,7 +53,7 @@ void AVLTree<Comparable>::printTree() const{
         cout << "Null" << endl;
     }
     else
-        printTree(root);
+        printTree(root, 0);
 }
 
 // Make the tree logically empty

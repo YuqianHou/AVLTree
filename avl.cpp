@@ -44,45 +44,84 @@ void print(int totalVisited, int totalRotation, int total){
     cout << "Visited " << totalVisited << " (" << amortizedVisited << ") nodes and performed " << totalRotation << "(" << amortizedRotation << ") rotations" << endl;
 }
 
-int main(int argc, const char* argv[])
+int main(int argc, char* argv[])
 {
-    string filename = "test.sh";
+    AVLTree<int> t;
+//    istringstream input;
+//    const char* storefile;
+//    storefile = argv[optind];
+//    stringstream buffer;
+//    string line;
+//    string command;
+//    string value;
+//    // Insert lines from storefile
+//    std::ifstream store(storefile);
+//    if(store.fail()) {
+//        std::cerr << "Unable to open file: " << storefile << '\n';
+//        exit(1);
+//    }
+    
+//    while(std::getline(store, line)) {
+//        if(v > 1) std::cout << ADDL << line << '\n';
+//        hashset.insert(line);
+//        filter.insert(line);
+//
+//        nstores += 1;
+//        if(nstores == n) {
+//            break;
+//        }
+//    }
+    
+//    if(v > 1) std::cout << '\n';
+//    store.close();
+
+    //string filename = "test.sh";
 //    if (argc >= 1) {
 //        filename = string(argv[1]);
 //    }else{
 //        cout << "Please enter correct filename." << endl;
 //        return 1;
 //    }
-    filename = argv[optind];
-    AVLTree<int> t;
+
+    string filename;
+    if (argc > 1) filename = string(argv[1]);
+    else {
+        cout << "Please enter the filename in correct format." << endl;
+        return 1;
+    }
     
     ifstream infile(filename);
     string line;
+    
     while (getline(infile, line))
     {
-        // Remove blank and tab at the beginning and end of this line.
         // Remove comments.
-        line_process(line);
+        //line_process(line);
         
-        if (line.empty())
+//        if (line.empty())
+//            continue;
+        
+//        istringstream iss(line);
+//        vector<string> vs;
+//        string s;
+//        while (iss >> s) {
+//            vs.push_back(s);
+//        }
+        if (line == "" || line[0] == '#') {
             continue;
-        
-        istringstream iss(line);
-        vector<string> vs;
-        string s;
-        while (iss >> s) {
-            vs.push_back(s);
         }
-        
-        if (vs[0] == "insert") {
+        istringstream input(line);
+        string command;
+        getline(input, command, ' ');
+        if (command == "insert") {
             int totalVisited = 0;
             int totalRotation = 0;
             int totalInserted = 0;
             int total = 0;
             int i = 1;
-            while (i < vs.size()) {
+            while (getline(input, command, ' ')) {
                 total++;
-                t.insert(std::stoi(vs[i]));
+                t.insert(std::stoi(command));
                 totalVisited += t.visited;
                 totalRotation += t.rotation;
                 totalInserted += t.inserted;
@@ -90,7 +129,7 @@ int main(int argc, const char* argv[])
             }
             cout << "Added " << totalInserted << " of " << total << "nodes." << endl;
             print(totalVisited, totalRotation, total);
-        }else if (vs[0] == "lookup"){
+        }else if (command == "lookup"){
             int totalVisited = 0;
             int totalRotation = 0;
             int found = 0;
@@ -98,12 +137,12 @@ int main(int argc, const char* argv[])
             int foundList[100];
             int i = 1;
             int j = 0;
-            while (i < vs.size()) {
+            while (getline(input, command, ' ')) {
                 total++;
-                if (t.contains(std::stoi(vs[i])) == true) {
+                if (t.contains(std::stoi(command)) == true) {
                     found++;
                     totalVisited += t.visited;
-                    foundList[j] = std::stoi(vs[i]);
+                    foundList[j] = std::stoi(command);
                     j++;
                 }
                 i++;
@@ -114,24 +153,27 @@ int main(int argc, const char* argv[])
             }
             cout << foundList[found - 1] << "]" << endl;
             print(totalVisited, totalRotation, total);
-        }else if (vs[0] == "print"){
-            if (vs[1] == "tree") {
-                t.printTree();
-            }else if (vs[1] == "left-left"){
-                cout << "The following inserts would cause a left-left rotation:" << endl;
-                
-            }else if (vs[1] == "left-right"){
-                cout << "The following inserts would cause a left-right rotation:" << endl;
-                
-            }else if (vs[1] == "right-left"){
-                cout << "The following inserts would cause a right-left rotation:" << endl;
-                
-            }else if (vs[1] == "right-right"){
-                cout << "The following inserts would cause a right-right rotation:" << endl;
-                
-            }else{
-                cout << "Wrong command" << endl;
+        }else if (command == "print"){
+            while (getline(input, command, ' ')) {
+                if (command == "tree") {
+                    t.printTree();
+                }else if (command == "left-left"){
+                    cout << "The following inserts would cause a left-left rotation:" << endl;
+                    
+                }else if (command == "left-right"){
+                    cout << "The following inserts would cause a left-right rotation:" << endl;
+                    
+                }else if (command == "right-left"){
+                    cout << "The following inserts would cause a right-left rotation:" << endl;
+                    
+                }else if (command == "right-right"){
+                    cout << "The following inserts would cause a right-right rotation:" << endl;
+                    
+                }else{
+                    cout << "Wrong command" << endl;
+                }
             }
+            
         }else{
             cout << "Wrong command" << endl;
         }
