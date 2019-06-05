@@ -45,7 +45,7 @@ private:
         AVLNode *left;
         AVLNode *right;
         int height; // From leave to root
-        int depth; // From root to leaf
+        //int depth; // From root to leaf
         
         AVLNode(const Comparable & ele, AVLNode *lt, AVLNode *rt, int h = 0, int d = 0):
         element{ ele }, left{ lt }, right{ rt }, height{ h } { }
