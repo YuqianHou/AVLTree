@@ -107,6 +107,8 @@ int main(int argc, char* argv[])
                     totalVisited += t.visited;
                     foundList[j] = std::stoi(command);
                     j++;
+                }else{
+                    totalVisited += t.visited;
                 }
             }
             cout << "Found " << found << " of " << total << " nodes: [";
