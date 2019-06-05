@@ -69,8 +69,8 @@ private:
      * Set the new root of the subtree.
      */
     void insert(const Comparable & x, AVLNode * & t){
-        inserted = 0;
-        visited = 0;
+//        inserted = 0;
+//        visited = 0;
         if(t == nullptr){
             t = new AVLNode{x, nullptr, nullptr};
             inserted++;
@@ -94,8 +94,8 @@ private:
      * Set the new root of the subtree.
      */
     void insert(Comparable && x, AVLNode * & t){
-        inserted = 0;
-        visited = 0;
+//        inserted = 0;
+//        visited = 0;
         if(t == nullptr)
             t = new AVLNode{std::move(x), nullptr, nullptr};
         else if (x < t->element){
@@ -138,7 +138,7 @@ private:
     
     // To keep the tree balanced
     void balance(AVLNode * & t){
-        rotation = 0;
+        //rotation = 0;
         if (t == nullptr) {
             return;
         }

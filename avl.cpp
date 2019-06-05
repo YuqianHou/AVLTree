@@ -117,6 +117,9 @@ int main(int argc, char* argv[])
         string command;
         getline(input, command, ' ');
         if (command == "insert") {
+            t.inserted = 0;
+            t.rotation = 0;
+            t.visited = 0;
             int totalVisited = 0;
             int totalRotation = 0;
             int totalInserted = 0;
@@ -131,6 +134,9 @@ int main(int argc, char* argv[])
             cout << "Added " << totalInserted << " of " << total << " nodes." << endl;
             print(totalVisited, totalRotation, total);
         }else if (command == "lookup"){
+            t.inserted = 0;
+            t.rotation = 0;
+            t.visited = 0;
             int totalVisited = 0;
             int totalRotation = 0;
             int found = 0;
