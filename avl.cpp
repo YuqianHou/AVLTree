@@ -39,8 +39,8 @@ using namespace std;
 //}
 
 void print(int totalVisited, int totalRotation, int total){
-    double amortizedVisited = (double)(totalVisited / total);
-    double amortizedRotation = (double)(totalRotation / total);
+    double amortizedVisited = (double)totalVisited / total;
+    double amortizedRotation = (double)totalRotation / total;
     cout << "Visited " << totalVisited << " (" << amortizedVisited << ") nodes and performed " << totalRotation << " (" << amortizedRotation << ") rotations" << endl;
 }
 
