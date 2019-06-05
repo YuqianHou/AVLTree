@@ -46,8 +46,7 @@ private:
         int element;
         AVLNode *left;
         AVLNode *right;
-        int height; // From leave to root
-        //int depth; // From root to leaf
+        int height;
         
         AVLNode(const Comparable & ele, AVLNode *lt, AVLNode *rt, int h = 0):
         element{ ele }, left{ lt }, right{ rt }, height{ h } { }
@@ -249,12 +248,12 @@ private:
     
     
     // Internal method to clone subtree
-//    AVLNode * clone(AVLNode *t) const{
-//        if (t == nullptr)
-//            return nullptr;
-//        else
-//            return new AVLNode{t->element, clone(t->left), clone(t->right), t->height};
-//    }
+    AVLNode * clone(AVLNode *t) const{
+        if (t == nullptr)
+            return nullptr;
+        else
+            return new AVLNode{t->element, clone(t->left), clone(t->right), t->height};
+    }
     
     // To compute height of an AVL tree
     int height(AVLNode *t) const{
@@ -264,13 +263,6 @@ private:
             return t -> height;
     }
     
-    // To compute depth of an AVL tree
-//    int depth(AVLNode *t) const{
-//        if(t == nullptr)
-//            return -1;
-//        else
-//            return t -> depth;
-//    }
     
     int max(int lhs, int rhs) const{
         if (lhs > rhs)
@@ -284,7 +276,7 @@ private:
         AVLNode *leftChild = p->left;
         p->left = leftChild->right;
         leftChild->right = p;
-        p->height = max(height(p->left), height(p->right));
+        p->height = max(height(p->left), height(p->right)) + 1;
         leftChild->height = max(height(leftChild->left), height(leftChild->right)) + 1;
         p = leftChild;
     }
@@ -294,7 +286,7 @@ private:
         AVLNode *rightChild = p->right;
         p->right = rightChild->left;
         rightChild->left = p;
-        p->height = max(height(p->left), height(p->right));
+        p->height = max(height(p->left), height(p->right)) + 1;
         rightChild->height = max(height(rightChild->left), height(rightChild->right)) + 1;
         p = rightChild;
     }
