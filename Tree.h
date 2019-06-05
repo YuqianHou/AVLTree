@@ -44,14 +44,16 @@ private:
         int element;
         AVLNode *left;
         AVLNode *right;
-        int height;
-        int depth;
+        int height; // From leave to root
+        int depth; // From root to leaf
         
         AVLNode(const Comparable & ele, AVLNode *lt, AVLNode *rt, int h = 0, int d = 0):
-        element{ ele }, left{ lt }, right{ rt }, height{ h }, depth{ d } { }
+        element{ ele }, left{ lt }, right{ rt }, height{ h } { }
+        //element{ ele }, left{ lt }, right{ rt }, height{ h }, depth{ d } { }
         
         AVLNode( Comparable && ele, AVLNode *lt, AVLNode *rt, int h = 0, int d = 0):
-        element { std::move(ele)}, left{ lt }, right{ rt }, height{ h }, depth{ d } { }
+        element { std::move(ele)}, left{ lt }, right{ rt }, height{ h } { }
+        //element { std::move(ele)}, left{ lt }, right{ rt }, height{ h }, depth{ d } { }
     };
     
     AVLNode *root;
@@ -144,7 +146,7 @@ private:
         
         // Update height and depth
         t->height = max(height(t->left), height(t->right)) + 1;
-        t->depth = root->height - t->height;
+        //t->depth = root->height - t->height;
     }
     
     // Internal method to find the smallest item in a subtree t
@@ -198,12 +200,14 @@ private:
     
     // Internal method to print a subtree rooted at t in sorted order
     void printTree(AVLNode *t) const{
+        int depth = 0;
         if (t != nullptr) {
-            printBlank(t->depth);
+            printBlank(depth);
             if(t->height == 0){
                 cout << "Leaf(" << t->element << ")" << endl;
             }else{
                 cout << "Node(" << t->element << ", h=" << t->height << "):" << endl;
+                depth++;
             }
             printTree(t->left);
             printTree(t->right);
@@ -225,6 +229,14 @@ private:
         else
             return t -> height;
     }
+    
+    // To compute depth of an AVL tree
+//    int depth(AVLNode *t) const{
+//        if(t == nullptr)
+//            return -1;
+//        else
+//            return t -> depth;
+//    }
     
     int max(int lhs, int rhs) const{
         if (lhs > rhs)
