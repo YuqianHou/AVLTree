@@ -47,12 +47,14 @@ private:
         int height; // From leave to root
         //int depth; // From root to leaf
         
-        AVLNode(const Comparable & ele, AVLNode *lt, AVLNode *rt, int h = 0, int d = 0):
+        AVLNode(const Comparable & ele, AVLNode *lt, AVLNode *rt, int h = 0):
         element{ ele }, left{ lt }, right{ rt }, height{ h } { }
+        //AVLNode(const Comparable & ele, AVLNode *lt, AVLNode *rt, int h = 0, int d = 0):
         //element{ ele }, left{ lt }, right{ rt }, height{ h }, depth{ d } { }
         
-        AVLNode( Comparable && ele, AVLNode *lt, AVLNode *rt, int h = 0, int d = 0):
+        AVLNode( Comparable && ele, AVLNode *lt, AVLNode *rt, int h = 0):
         element { std::move(ele)}, left{ lt }, right{ rt }, height{ h } { }
+        //AVLNode( Comparable && ele, AVLNode *lt, AVLNode *rt, int h = 0, int d = 0):
         //element { std::move(ele)}, left{ lt }, right{ rt }, height{ h }, depth{ d } { }
     };
     
