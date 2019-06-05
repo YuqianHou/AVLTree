@@ -8,6 +8,7 @@
 #include <fstream>
 #include <cassert>
 #include <vector>
+#include <math.h>
 using namespace std;
 
 // 处理注释，空格，和空行的函数
@@ -36,6 +37,12 @@ void line_process(std::string &line, const std::string comment_str = "#")
     // 行首多个空格(和tab)和行尾注释被删掉，只保留有意义的内容。
 }
 
+void print(int totalVisited, int totalRotation, int total){
+    double amortizedVisited = totalVisited / total;
+    double amortizedRotation = totalRotation / total;
+    cout << "Visited " << totalVisited << " (" << amortizedVisited << ") nodes and performed " << totalRotation << "(" << amortizedRotation << ") rotations" << endl;
+}
+
 int main()
 {
     AVLTree<int> t;
@@ -56,18 +63,45 @@ int main()
         }
         
         if (vs[0] == "insert") {
-//            int visit = 0;
-//            int rotations = 0;
+            int totalVisited = 0;
+            int totalRotation = 0;
+            int totalInserted = 0;
+            int total = 0;
             int i = 1;
             while (vs[i] != "\n") {
+                total++;
                 t.insert(std::stoi(vs[i]));
-                
+                totalVisited += t.visited;
+                totalRotation += t.rotation;
+                totalInserted += t.inserted;
+                i++;
             }
+            cout << "Added " << totalInserted << " of " << total << "nodes." << endl;
+            print(totalVisited, totalRotation, total);
         }else if (vs[0] == "lookup"){
+            int totalVisited = 0;
+            int totalRotation = 0;
+            int found = 0;
+            int total = 0;
+            int foundList[100];
             int i = 1;
+            int j = 0;
             while (vs[i] != "\n") {
-                
+                total++;
+                if (t.contains(std::stoi(vs[i])) == true) {
+                    found++;
+                    totalVisited += t.visited;
+                    foundList[j] = std::stoi(vs[i]);
+                    j++;
+                }
+                i++;
             }
+            cout << "Found " << found << " of " << total << " nodes: [";
+            for (int j = 0; j < found - 1; j++) {
+                cout << foundList[j] << ", ";
+            }
+            cout << foundList[found - 1] << "]" << endl;
+            print(totalVisited, totalRotation, total);
         }else if (vs[0] == "print"){
             if (vs[1] == "tree") {
                 t.printTree();

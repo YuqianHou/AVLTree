@@ -28,14 +28,16 @@ public:
     AVLTree & operator=(AVLTree && rhs); // Move
     const Comparable & findMin() const; //Find the smallest item in the tree
     const Comparable & findMax() const; //Find the largest item in the tree
-    bool contains(const Comparable & x) const;
+    bool contains(const Comparable & x);
     bool isEmpty() const;
     void printTree() const; // Print the tree in sorted order
     void makeEmpty(); // Make the tree logically empty
     void insert(const Comparable & x);
     void insert(Comparable && x);
     void remove(const Comparable & x);
-    
+    int rotation;
+    int visited;
+    int inserted;
 
 private:
     Comparable nodeNum = 0;
@@ -67,37 +69,45 @@ private:
      * Set the new root of the subtree.
      */
     void insert(const Comparable & x, AVLNode * & t){
-        if(t == nullptr)
+        inserted = 0;
+        visited = 0;
+        if(t == nullptr){
             t = new AVLNode{x, nullptr, nullptr};
-        else if (x < t->element)
+            inserted++;
+        }
+        else if (x < t->element){
+            visited++;
             insert(x, t->left);
-        else if (x > t->element)
+        }
+        else if (x > t->element){
+            visited++;
             insert(x, t->right);
+        }
         
         balance(t);
-//        std::cout << "Added " << x << " of " <<  << " nodes." << std::endl;
-//        std::cout << "Visited " << 5 (1) << " nodes and performed " << 0 (0) << " rotations." << std::endl;
-//        nodeNum++;
     }
     
-    /* ???
+    /*
      * Internal method to insert into a subtree.
      * x is the item to insert.
      * t is the node that roots the subtree.
      * Set the new root of the subtree.
      */
     void insert(Comparable && x, AVLNode * & t){
+        inserted = 0;
+        visited = 0;
         if(t == nullptr)
             t = new AVLNode{std::move(x), nullptr, nullptr};
-        else if (x < t->element)
+        else if (x < t->element){
+            visited++;
             insert(std::move(x), t->left);
-        else if (x > t->element)
+        }
+        else if (x > t->element){
+            visited++;
             insert(std::move(x), t->right);
+        }
         
         balance(t);
-//        std::cout << "Added " << x << " of " <<  << " nodes." << std::endl;
-//        std::cout << "Visited " << 5 (1) << " nodes and performed " << 0 (0) << " rotations." << std::endl;
-//        nodeNum++;
     }
     
     // Deletion in an AVL tree
@@ -128,21 +138,25 @@ private:
     
     // To keep the tree balanced
     void balance(AVLNode * & t){
+        rotation = 0;
         if (t == nullptr) {
             return;
         }
-        
         if (height(t->left) - height(t->right) > ALLOWED_IMBALANCE) {
             if (height(t->left->left) >= height(t->left->right)) {
                 rightRotation(t);
+                rotation++;
             }else{
                 leftRightRotation(t);
+                rotation += 2;
             }
         }else if (height(t->right) - height(t->left) > ALLOWED_IMBALANCE){
             if (height(t->right->right) >= height(t->right->left)) {
                 leftRotation(t);
+                rotation++;
             }else{
                 rightLeftRotation(t);
+                rotation += 2;
             }
         }
         
@@ -152,7 +166,7 @@ private:
     }
     
     // Internal method to find the smallest item in a subtree t
-    AVLNode * findMin(AVLNode *t)const{
+    AVLNode * findMin(AVLNode *t) const{
         if (t == nullptr) {
             return nullptr;
         }
@@ -163,7 +177,7 @@ private:
     }
     
     // Internal method to find the largest item in a subtree t
-    AVLNode * findMax(AVLNode *t)const{
+    AVLNode * findMax(AVLNode *t) const{
         if (t != nullptr) {
             while (t->right != nullptr) {
                 t = t->right;
@@ -173,15 +187,22 @@ private:
     }
     
     // To find if a number has been in the tree
-    bool contains(const Comparable & x, AVLNode *t)const{
+    bool contains(const Comparable & x, AVLNode *t) {
+        visited = 0;
         if(t == nullptr)
             return false;
-        else if (x < t->element)
+        else if (x < t->element){
+            visited++;
             return contains(x, t->left);
-        else if (x > t->element)
+        }
+        else if (x > t->element){
+            visited++;
             return contains(x, t->right);
-        else
+        }
+        else{
+            visited++;
             return true;
+        }
     }
     
     // Internal method to make subtree empty

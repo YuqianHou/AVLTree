@@ -37,7 +37,7 @@ const Comparable & AVLTree<Comparable>::findMax() const{
 }
 
 template <typename Comparable>
-bool AVLTree<Comparable>::contains(const Comparable & x) const{
+bool AVLTree<Comparable>::contains(const Comparable & x) {
     return contains(x, root);
 }
 
