@@ -217,7 +217,7 @@ private:
     
     // Internal method to print a subtree rooted at t in sorted order
     void printTree(AVLNode *t, int blankNum) const{
-        int cnt = blankNum;
+        int cnt = blankNum; // The level of the node.
         while (cnt--) {
             cout << " ";
         }
@@ -248,29 +248,14 @@ private:
         }
     }
     
-//    // Internal method to print a subtree rooted at t in sorted order
-//    void printTree(AVLNode *t) const{
-//        int depth = 0;
-//        if (t != nullptr) {
-//            printBlank(depth);
-//            if(t->height == 0){
-//                cout << "Leaf(" << t->element << ")" << endl;
-//            }else{
-//                cout << "Node(" << t->element << ", h=" << t->height << "):" << endl;
-//                depth++;
-//            }
-//            printTree(t->left);
-//            printTree(t->right);
-//        }
-//    }
     
     // Internal method to clone subtree
-    AVLNode * clone(AVLNode *t) const{
-        if (t == nullptr)
-            return nullptr;
-        else
-            return new AVLNode{t->element, clone(t->left), clone(t->right), t->height};
-    }
+//    AVLNode * clone(AVLNode *t) const{
+//        if (t == nullptr)
+//            return nullptr;
+//        else
+//            return new AVLNode{t->element, clone(t->left), clone(t->right), t->height};
+//    }
     
     // To compute height of an AVL tree
     int height(AVLNode *t) const{
