@@ -1,7 +1,6 @@
 #include "Tree.h"
 #include "Tree.cpp"
 #include <iostream>
-#include <iostream>
 #include <iomanip>
 #include <string>
 #include <sstream>
@@ -9,11 +8,13 @@
 #include <cassert>
 #include <vector>
 #include <math.h>
+#include <unistd.h>
 using namespace std;
 
-// 处理注释，空格，和空行的函数
-// line，表示一行文本内容
-// comment_str，表示注释前导字符串，默认设置为#，也可以用//或者%
+// Process comments, blanks and blank lines
+// line: a line of commend
+// comment_str: when the line start with #, it is a comment and should be ignored
+// Likewise, empty lines should be ignored.
 void line_process(std::string &line, const std::string comment_str = "#")
 {
     for (char &c : line)
@@ -43,15 +44,26 @@ void print(int totalVisited, int totalRotation, int total){
     cout << "Visited " << totalVisited << " (" << amortizedVisited << ") nodes and performed " << totalRotation << "(" << amortizedRotation << ") rotations" << endl;
 }
 
-int main()
+int main(int argc, const char* argv[])
 {
+    string filename = "test.sh";
+//    if (argc >= 1) {
+//        filename = string(argv[1]);
+//    }else{
+//        cout << "Please enter correct filename." << endl;
+//        return 1;
+//    }
+    filename = argv[optind];
     AVLTree<int> t;
-    ifstream is("file");
     
+    ifstream infile(filename);
     string line;
-    while (std::getline(is, line))
+    while (getline(infile, line))
     {
-        line_process(line); // 把行首和行尾的多个空格, tab去掉，把注释文字也去掉
+        // Remove blank and tab at the beginning and end of this line.
+        // Remove comments.
+        line_process(line);
+        
         if (line.empty())
             continue;
         
@@ -68,7 +80,7 @@ int main()
             int totalInserted = 0;
             int total = 0;
             int i = 1;
-            while (vs[i] != "\n") {
+            while (i < vs.size()) {
                 total++;
                 t.insert(std::stoi(vs[i]));
                 totalVisited += t.visited;
@@ -86,7 +98,7 @@ int main()
             int foundList[100];
             int i = 1;
             int j = 0;
-            while (vs[i] != "\n") {
+            while (i < vs.size()) {
                 total++;
                 if (t.contains(std::stoi(vs[i])) == true) {
                     found++;
