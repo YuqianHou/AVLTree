@@ -189,7 +189,7 @@ private:
     
     // To find if a number has been in the tree
     bool contains(const Comparable & x, AVLNode *t) {
-        visited = 0;
+        //visited = 0;
         if(t == nullptr)
             return false;
         else if (x < t->element){
