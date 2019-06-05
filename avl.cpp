@@ -139,6 +139,7 @@ int main(int argc, char* argv[])
         }else{
             cout << "Wrong command" << endl;
         }
+        cout << endl;
     }
 
     return 0;
