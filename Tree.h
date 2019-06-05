@@ -279,6 +279,9 @@ private:
         p->height = max(height(p->left), height(p->right)) + 1;
         leftChild->height = max(height(leftChild->left), height(leftChild->right)) + 1;
         p = leftChild;
+        if (root == p) {
+            root = leftChild;
+        }
     }
     
     // Single left rotation with right child
@@ -289,6 +292,9 @@ private:
         p->height = max(height(p->left), height(p->right)) + 1;
         rightChild->height = max(height(rightChild->left), height(rightChild->right)) + 1;
         p = rightChild;
+        if (root == p) {
+            root = rightChild;
+        }
     }
     
     // Double rotation with left child
