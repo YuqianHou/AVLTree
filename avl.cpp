@@ -39,49 +39,14 @@ using namespace std;
 //}
 
 void print(int totalVisited, int totalRotation, int total){
-    double amortizedVisited = totalVisited / total;
-    double amortizedRotation = totalRotation / total;
+    double amortizedVisited = (double)(totalVisited / total);
+    double amortizedRotation = (double)(totalRotation / total);
     cout << "Visited " << totalVisited << " (" << amortizedVisited << ") nodes and performed " << totalRotation << " (" << amortizedRotation << ") rotations" << endl;
 }
 
 int main(int argc, char* argv[])
 {
     AVLTree<int> t;
-//    istringstream input;
-//    const char* storefile;
-//    storefile = argv[optind];
-//    stringstream buffer;
-//    string line;
-//    string command;
-//    string value;
-//    // Insert lines from storefile
-//    std::ifstream store(storefile);
-//    if(store.fail()) {
-//        std::cerr << "Unable to open file: " << storefile << '\n';
-//        exit(1);
-//    }
-    
-//    while(std::getline(store, line)) {
-//        if(v > 1) std::cout << ADDL << line << '\n';
-//        hashset.insert(line);
-//        filter.insert(line);
-//
-//        nstores += 1;
-//        if(nstores == n) {
-//            break;
-//        }
-//    }
-    
-//    if(v > 1) std::cout << '\n';
-//    store.close();
-
-    //string filename = "test.sh";
-//    if (argc >= 1) {
-//        filename = string(argv[1]);
-//    }else{
-//        cout << "Please enter correct filename." << endl;
-//        return 1;
-//    }
 
     string filename;
     if (argc > 1) filename = string(argv[1]);
@@ -101,13 +66,6 @@ int main(int argc, char* argv[])
 //        if (line.empty())
 //            continue;
         
-//        istringstream iss(line);
-//        vector<string> vs;
-//        string s;
-//        while (iss >> s) {
-//            vs.push_back(s);
-//        }
-        
         // Remove comments and blank lines
         if (line == "" || line[0] == '#') {
             continue;
@@ -122,10 +80,10 @@ int main(int argc, char* argv[])
             int totalInserted = 0;
             int total = 0;
             while (getline(input, command, ' ')) {
+                total++;
                 t.inserted = 0;
                 t.rotation = 0;
                 t.visited = 0;
-                total++;
                 t.insert(std::stoi(command));
                 totalVisited += t.visited;
                 totalRotation += t.rotation;
@@ -141,9 +99,9 @@ int main(int argc, char* argv[])
             int foundList[100];
             int j = 0;
             while (getline(input, command, ' ')) {
+                total++;
                 t.rotation = 0;
                 t.visited = 0;
-                total++;
                 if (t.contains(std::stoi(command)) == true) {
                     found++;
                     totalVisited += t.visited;
