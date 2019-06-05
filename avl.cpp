@@ -15,28 +15,28 @@ using namespace std;
 // line: a line of commend
 // comment_str: when the line start with #, it is a comment and should be ignored
 // Likewise, empty lines should be ignored.
-void line_process(std::string &line, const std::string comment_str = "#")
-{
-    for (char &c : line)
-    {
-        // 制表符 tab，逗号，分号都当作有效的分隔符，统一转成空格
-        // 为了避免错误，回车符和换行符也转为空格（否则无法处理空行）
-        if (c == '\t' || c == ',' || c == ';' || c == '\r' || c == '\n')
-            c = ' ';
-    }
-    
-    line.erase(0, line.find_first_not_of(" "));//删除行首空格
-    line.erase(line.find_last_not_of(" ") + 1);//删除行末空格
-    
-    //查找注释符所在位置，如果不存在，则得到string::npos
-    std::size_t n_comment_start = line.find_first_of(comment_str);
-    if (n_comment_start != std::string::npos)//这一句必须的
-        line.erase(n_comment_start);         //删除注释
-    
-    // 处理完毕。如果这一行只有空格，制表符 tab，注释，那么处理后line为空；
-    // 如果行首有多个空格(或者空格和tab交错)，行尾为注释，那么处理后字符串line的
-    // 行首多个空格(和tab)和行尾注释被删掉，只保留有意义的内容。
-}
+//void line_process(std::string &line, const std::string comment_str = "#")
+//{
+//    for (char &c : line)
+//    {
+//        // 制表符 tab，逗号，分号都当作有效的分隔符，统一转成空格
+//        // 为了避免错误，回车符和换行符也转为空格（否则无法处理空行）
+//        if (c == '\t' || c == ',' || c == ';' || c == '\r' || c == '\n')
+//            c = ' ';
+//    }
+//
+//    line.erase(0, line.find_first_not_of(" "));//删除行首空格
+//    line.erase(line.find_last_not_of(" ") + 1);//删除行末空格
+//
+//    //查找注释符所在位置，如果不存在，则得到string::npos
+//    std::size_t n_comment_start = line.find_first_of(comment_str);
+//    if (n_comment_start != std::string::npos)//这一句必须的
+//        line.erase(n_comment_start);         //删除注释
+//
+//    // 处理完毕。如果这一行只有空格，制表符 tab，注释，那么处理后line为空；
+//    // 如果行首有多个空格(或者空格和tab交错)，行尾为注释，那么处理后字符串line的
+//    // 行首多个空格(和tab)和行尾注释被删掉，只保留有意义的内容。
+//}
 
 void print(int totalVisited, int totalRotation, int total){
     double amortizedVisited = totalVisited / total;
@@ -107,9 +107,12 @@ int main(int argc, char* argv[])
 //        while (iss >> s) {
 //            vs.push_back(s);
 //        }
+        
+        // Remove comments and blank lines
         if (line == "" || line[0] == '#') {
             continue;
         }
+        
         istringstream input(line);
         string command;
         getline(input, command, ' ');
@@ -118,16 +121,14 @@ int main(int argc, char* argv[])
             int totalRotation = 0;
             int totalInserted = 0;
             int total = 0;
-            int i = 1;
             while (getline(input, command, ' ')) {
                 total++;
                 t.insert(std::stoi(command));
                 totalVisited += t.visited;
                 totalRotation += t.rotation;
                 totalInserted += t.inserted;
-                i++;
             }
-            cout << "Added " << totalInserted << " of " << total << "nodes." << endl;
+            cout << "Added " << totalInserted << " of " << total << " nodes." << endl;
             print(totalVisited, totalRotation, total);
         }else if (command == "lookup"){
             int totalVisited = 0;
@@ -135,7 +136,6 @@ int main(int argc, char* argv[])
             int found = 0;
             int total = 0;
             int foundList[100];
-            int i = 1;
             int j = 0;
             while (getline(input, command, ' ')) {
                 total++;
@@ -145,7 +145,6 @@ int main(int argc, char* argv[])
                     foundList[j] = std::stoi(command);
                     j++;
                 }
-                i++;
             }
             cout << "Found " << found << " of " << total << " nodes: [";
             for (int j = 0; j < found - 1; j++) {
@@ -178,7 +177,6 @@ int main(int argc, char* argv[])
             cout << "Wrong command" << endl;
         }
     }
-    
 
     return 0;
 }
