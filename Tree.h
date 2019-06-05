@@ -96,8 +96,10 @@ private:
     void insert(Comparable && x, AVLNode * & t){
 //        inserted = 0;
 //        visited = 0;
-        if(t == nullptr)
+        if(t == nullptr){
             t = new AVLNode{std::move(x), nullptr, nullptr};
+            inserted++;
+        }
         else if (x < t->element){
             visited++;
             insert(std::move(x), t->left);
@@ -162,7 +164,6 @@ private:
         
         // Update height and depth
         t->height = max(height(t->left), height(t->right)) + 1;
-        //t->depth = root->height - t->height;
     }
     
     // Internal method to find the smallest item in a subtree t
