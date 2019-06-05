@@ -74,14 +74,14 @@ private:
         if(t == nullptr){
             t = new AVLNode{x, nullptr, nullptr};
             inserted++;
-        }
-        else if (x < t->element){
+        }else if (x < t->element){
             visited++;
             insert(x, t->left);
-        }
-        else if (x > t->element){
+        }else if (x > t->element){
             visited++;
             insert(x, t->right);
+        }else{
+            visited++;
         }
         
         balance(t);
@@ -99,14 +99,14 @@ private:
         if(t == nullptr){
             t = new AVLNode{std::move(x), nullptr, nullptr};
             inserted++;
-        }
-        else if (x < t->element){
+        }else if (x < t->element){
             visited++;
             insert(std::move(x), t->left);
-        }
-        else if (x > t->element){
+        }else if (x > t->element){
             visited++;
             insert(std::move(x), t->right);
+        }else{
+            visited++;
         }
         
         balance(t);
@@ -195,12 +195,10 @@ private:
         else if (x < t->element){
             visited++;
             return contains(x, t->left);
-        }
-        else if (x > t->element){
+        }else if (x > t->element){
             visited++;
             return contains(x, t->right);
-        }
-        else{
+        }else{
             visited++;
             return true;
         }
