@@ -378,7 +378,7 @@ private:
                 if (t->element >= parent) {
                     t->low =(int)(t->right->left->element) + 1;
                     t->up = (int)(t->right->element) - 1;
-                }else(t->element < parent){
+                }else{
                     t->low = (int)(t->right->left->element) + 1;
                     t->up = (int)parent - 1;
                 }
