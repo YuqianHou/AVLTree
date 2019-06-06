@@ -337,12 +337,14 @@ private:
             if (height(t->left) - height(t->right) == ALLOWED_IMBALANCE && height(t->left->left) < height(t->left->right)) {
                 countLR++;
                 // To set the value of low and up
-                if (t->element > parent) {
-                    t->low = (int)parent + 1;
-                    t->up = (int)(t->left->right->element) - 1;
-                }else if(t->element < parent){
-                    t->low = (int)(t->left->element) + 1;
-                    t->up = (int)(t->left->right->element) - 1;
+                if (t->element != parent) {
+                    if (height(t->left->right->left) > height(t->left->right->right)) {
+                        t->low = (int)(t->left->element) + 1;
+                        t->up = (int)(t->left->right->element) - 1;
+                    }else if(height(t->left->right->left) < height(t->left->right->right)){
+                        t->low = (int)(t->left->right->element) + 1;
+                        t->up = (int)(t->element) - 1;
+                    }
                 }else{
                     t->low = (int)(t->left->element) + 1;
                     t->up = (int)(t->element) - 1;
@@ -378,12 +380,14 @@ private:
             if (height( t->right ) - height( t->left ) == ALLOWED_IMBALANCE && height( t->right->right ) < height( t->right->left )) {
                 countRL++;
                 // To set the value of low and up
-                if (t->element > parent) {
-                    t->low = (int)(t->right->left->element) + 1;
-                    t->up = (int)(t->right->element) - 1;
-                }else if(t->element < parent){
-                    t->low = (int)(t->right->left->element) + 1;
-                    t->up = (int)parent - 1;
+                if (t->element != parent) {
+                    if (height(t->right->left->left) > height(t->right->left->right)) {
+                        t->low = (int)(t->element) + 1;
+                        t->up = (int)(t->right->left->element) - 1;
+                    }else if(height(t->right->left->left) < height(t->right->left->right)){
+                        t->low = (int)(t->right->left->element) + 1;
+                        t->up = (int)(t->right->element) - 1;
+                    }
                 }else{
                     t->low = (int)(t->element) + 1;
                     t->up = (int)(t->right->element) - 1;
