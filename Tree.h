@@ -258,7 +258,7 @@ private:
             return;
         }else if (t != nullptr) {
             // Find a node
-            if (height(t->left) - height(t->right) == ALLOWED_IMBALANCE && height(t->left->left) >= height(t->left->right)) {
+            if ((height(t->left) - height(t->right) == ALLOWED_IMBALANCE) && (height(t->left->left) >= height(t->left->right))) {
                 countLL++;
                 // To set the value of low and up
                 if (t->element > parent) {
@@ -296,7 +296,7 @@ private:
             return;
         }else if (t != nullptr) {
             // Find a node
-            if (height( t->right ) - height( t->left ) == ALLOWED_IMBALANCE && height( t->right->right ) >= height( t->right->left )) {
+            if ((height( t->right ) - height( t->left ) == ALLOWED_IMBALANCE) && (height( t->right->right ) >= height( t->right->left ))) {
                 countRR++;
                 // To set the value of low and up
                 if (t->element > parent) {
@@ -334,7 +334,7 @@ private:
             return;
         }else if (t != nullptr) {
             // Find a node
-            if (height(t->left) - height(t->right) == ALLOWED_IMBALANCE && height(t->left->left) < height(t->left->right)) {
+            if ((height(t->left) - height(t->right) == ALLOWED_IMBALANCE) && (height(t->left->left) < height(t->left->right))) {
                 //countLR++;
                 // To set the value of low and up
                 if (t->element != parent) {
@@ -391,7 +391,7 @@ private:
             return;
         }else if (t != nullptr) {
             // Find a node
-            if (height( t->right ) - height( t->left ) == ALLOWED_IMBALANCE && height( t->right->right ) < height( t->right->left )) {
+            if ((height( t->right ) - height( t->left ) == ALLOWED_IMBALANCE) && (height( t->right->right ) < height( t->right->left ))) {
                 //countRL++;
                 // To set the value of low and up
                 if (t->element != parent) {
