@@ -94,28 +94,28 @@ int main(int argc, char* argv[])
                     t.countLL = 0;
                     t.left_left();
                     if (t.countLL == 0) {
-                        cout << "No inserts would cause a left-left rotation." << endl;
+                        cout << "No inserts would cause a left-left rotation.";
                     }
                     cout << endl;
                 }else if (command == "left-right"){
                     t.countLR = 0;
                     t.left_right();
                     if (t.countLR == 0) {
-                        cout << "No inserts would cause a left-right rotation." << endl;
+                        cout << "No inserts would cause a left-right rotation.";
                     }
                     cout << endl;
                 }else if (command == "right-left"){
                     t.countRL = 0;
                     t.right_left();
                     if (t.countRL == 0) {
-                        cout << "No inserts would cause a right-left rotation." << endl;
+                        cout << "No inserts would cause a right-left rotation.";
                     }
                     cout << endl;
                 }else if (command == "right-right"){
                     t.countRR = 0;
                     t.right_right();
                     if (t.countRR == 0) {
-                        cout << "No inserts would cause a right-right rotation." << endl;
+                        cout << "No inserts would cause a right-right rotation.";
                     }
                     cout << endl;
                 }else{
