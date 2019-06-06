@@ -11,38 +11,13 @@
 #include <unistd.h>
 using namespace std;
 
-// Process comments, blanks and blank lines
-// line: a line of commend
-// comment_str: when the line start with #, it is a comment and should be ignored
-// Likewise, empty lines should be ignored.
-//void line_process(std::string &line, const std::string comment_str = "#")
-//{
-//    for (char &c : line)
-//    {
-//        // 制表符 tab，逗号，分号都当作有效的分隔符，统一转成空格
-//        // 为了避免错误，回车符和换行符也转为空格（否则无法处理空行）
-//        if (c == '\t' || c == ',' || c == ';' || c == '\r' || c == '\n')
-//            c = ' ';
-//    }
-//
-//    line.erase(0, line.find_first_not_of(" "));//删除行首空格
-//    line.erase(line.find_last_not_of(" ") + 1);//删除行末空格
-//
-//    //查找注释符所在位置，如果不存在，则得到string::npos
-//    std::size_t n_comment_start = line.find_first_of(comment_str);
-//    if (n_comment_start != std::string::npos)//这一句必须的
-//        line.erase(n_comment_start);         //删除注释
-//
-//    // 处理完毕。如果这一行只有空格，制表符 tab，注释，那么处理后line为空；
-//    // 如果行首有多个空格(或者空格和tab交错)，行尾为注释，那么处理后字符串line的
-//    // 行首多个空格(和tab)和行尾注释被删掉，只保留有意义的内容。
-//}
-
 void print(int totalVisited, int totalRotation, int total){
     double amortizedVisited = (double)totalVisited / total;
     double amortizedRotation = (double)totalRotation / total;
     cout << "Visited " << totalVisited << " (" << amortizedVisited << ") nodes and performed " << totalRotation << " (" << amortizedRotation << ") rotations." << endl;
 }
+
+
 
 int main(int argc, char* argv[])
 {
@@ -60,12 +35,6 @@ int main(int argc, char* argv[])
     
     while (getline(infile, line))
     {
-        // Remove comments.
-        //line_process(line);
-        
-//        if (line.empty())
-//            continue;
-        
         // Remove comments and blank lines
         if (line == "" || line[0] == '#') {
             continue;
