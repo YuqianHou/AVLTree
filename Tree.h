@@ -196,7 +196,6 @@ private:
     
     // To find if a number has been in the tree
     bool contains(const Comparable & x, AVLNode *t) {
-        //visited = 0;
         if(t == nullptr)
             return false;
         else if (x < t->element){
@@ -255,9 +254,13 @@ private:
     }
     
     void left_left(AVLNode * & t, const Comparable & parent){
-        if (t != nullptr) {
+        if (t == nullptr) {
+            return;
+        }else if (t != nullptr) {
+            // Find a node
             if (height(t->left) - height(t->right) == ALLOWED_IMBALANCE && height(t->left->left) >= height(t->left->right)) {
                 countLL++;
+                // To set the value of low and up
                 if (t->element > parent) {
                     t->low = (int)parent + 1;
                     t->up = (int)(t->left->element) - 1;
@@ -265,6 +268,7 @@ private:
                     t->low = -2147483648;
                     t->up = (int)(t->left->element) - 1;
                 }
+                // Output the value
                 if (countLL == 1) {
                     cout << "The following inserts would cause a left-left rotation:" << endl;
                     if (t->low == t->up) {
@@ -282,6 +286,7 @@ private:
                 }
             }
         }
+        // Continue to find the node
         left_left(t->left, t->element);
         left_left(t->right, t->element);
     }
