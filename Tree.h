@@ -42,6 +42,7 @@ public:
     int rotation;
     int visited;
     int inserted;
+    int countLL, countRR, countLR, countRL;
 
 private:
     Comparable nodeNum = 0;
@@ -254,10 +255,9 @@ private:
     }
     
     void left_left(AVLNode * & t, const Comparable & parent){
-        int count = 0;
         if (t != nullptr) {
             if (height(t->left) - height(t->right) == ALLOWED_IMBALANCE && height(t->left->left) >= height(t->left->right)) {
-                count++;
+                countLL++;
                 if (t->element > parent) {
                     t->low = (int)parent + 1;
                     t->up = (int)(t->left->element) - 1;
@@ -265,14 +265,14 @@ private:
                     t->low = -2147483648;
                     t->up = (int)(t->left->element) - 1;
                 }
-                if (count == 1) {
+                if (countLL == 1) {
                     cout << "The following inserts would cause a left-left rotation:" << endl;
                     if (t->low == t->up) {
                         cout << t->low;
                     }else{
                         cout << t->low << " to " << t->up;
                     }
-                }else{
+                }else if(countLL > 1){
                     cout << ", ";
                     if (t->low == t->up) {
                         cout << t->low;
@@ -280,14 +280,10 @@ private:
                         cout << t->low << " to " << t->up;
                     }
                 }
-                
             }
         }
         left_left(t->left, t->element);
         left_left(t->right, t->element);
-        if (count == 0) {
-            cout << "No inserts would cause a left-left rotation." << endl;
-        }
     }
     
     void right_right(AVLNode * & t, const Comparable & parent){
@@ -343,7 +339,7 @@ private:
                 }else{
                     cout << t->low << " to " << t->up;
                 }
-            }else{
+            }else if(count > 1){
                 cout << ", ";
                 if (t->low == t->up) {
                     cout << t->low;

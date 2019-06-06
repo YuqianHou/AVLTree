@@ -92,12 +92,24 @@ int main(int argc, char* argv[])
                     t.printTree();
                 }else if (command == "left-left"){
                     t.left_left();
+                    if (t.countLL == 0) {
+                        cout << "No inserts would cause a left-left rotation." << endl;
+                    }
                 }else if (command == "left-right"){
                     t.left_right();
+                    if (t.countLR == 0) {
+                        cout << "No inserts would cause a left-left rotation." << endl;
+                    }
                 }else if (command == "right-left"){
                     t.right_left();
+                    if (t.countRL == 0) {
+                        cout << "No inserts would cause a left-left rotation." << endl;
+                    }
                 }else if (command == "right-right"){
                     t.right_right();
+                    if (t.countRR == 0) {
+                        cout << "No inserts would cause a left-left rotation." << endl;
+                    }
                 }else{
                     cout << "Wrong command" << endl;
                 }
