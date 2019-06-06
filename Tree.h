@@ -335,7 +335,7 @@ private:
         }else if (t != nullptr) {
             // Find a node
             if (height(t->left) - height(t->right) == ALLOWED_IMBALANCE && height(t->left->left) < height(t->left->right)) {
-                countLR++;
+                //countLR++;
                 // To set the value of low and up
                 if (t->element != parent) {
                     if (t->left->right->left != nullptr && t->left->right->right != nullptr) {
@@ -344,11 +344,13 @@ private:
                             t->low = (int)(t->left->element) + 1;
                             t->up = (int)(t->left->right->element) - 1;
                         }else if(height(t->left->right->left) < height(t->left->right->right)){
+                            countLR++;
                             t->low = (int)(t->left->right->element) + 1;
                             t->up = (int)(t->element) - 1;
                         }
                     }
                 }else{
+                    countLR++;
                     t->low = (int)(t->left->element) + 1;
                     t->up = (int)(t->element) - 1;
                 }
@@ -386,14 +388,17 @@ private:
                 if (t->element != parent) {
                     if (t->right->left->left != nullptr && t->right->left->right != nullptr) {
                         if (height(t->right->left->left) > height(t->right->left->right)) {
+                            countRL++;
                             t->low = (int)(t->element) + 1;
                             t->up = (int)(t->right->left->element) - 1;
                         }else if(height(t->right->left->left) < height(t->right->left->right)){
+                            countRL++;
                             t->low = (int)(t->right->left->element) + 1;
                             t->up = (int)(t->right->element) - 1;
                         }
                     }
                 }else{
+                    countRL++;
                     t->low = (int)(t->element) + 1;
                     t->up = (int)(t->right->element) - 1;
                 }
