@@ -346,7 +346,7 @@ private:
                 }
                 // Output the value
                 if (countLR == 1) {
-                    cout << "The following inserts would cause a left-left rotation:" << endl;
+                    cout << "The following inserts would cause a left-right rotation:" << endl;
                     if (t->low == t->up) {
                         cout << t->low;
                     }else{
@@ -384,7 +384,7 @@ private:
                 }
                 // Output the value
                 if (countRL == 1) {
-                    cout << "The following inserts would cause a right-right rotation:" << endl;
+                    cout << "The following inserts would cause a right-left rotation:" << endl;
                     if (t->low == t->up) {
                         cout << t->low;
                     }else{
