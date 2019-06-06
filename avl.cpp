@@ -100,25 +100,24 @@ int main(int argc, char* argv[])
                     t.countLR = 0;
                     t.left_right();
                     if (t.countLR == 0) {
-                        cout << "No inserts would cause a left-left rotation." << endl;
+                        cout << "No inserts would cause a left-right rotation." << endl;
                     }
                 }else if (command == "right-left"){
                     t.countRL = 0;
                     t.right_left();
                     if (t.countRL == 0) {
-                        cout << "No inserts would cause a left-left rotation." << endl;
+                        cout << "No inserts would cause a right-left rotation." << endl;
                     }
                 }else if (command == "right-right"){
                     t.countRR = 0;
                     t.right_right();
                     if (t.countRR == 0) {
-                        cout << "No inserts would cause a left-left rotation." << endl;
+                        cout << "No inserts would cause a right-right rotation." << endl;
                     }
                 }else{
                     cout << "Wrong command" << endl;
                 }
             }
-            
         }else{
             cout << "Wrong command" << endl;
         }
