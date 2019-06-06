@@ -292,102 +292,117 @@ private:
     }
     
     void right_right(AVLNode * & t, const Comparable & parent){
-        int count = 0;
-        if (t != nullptr) {
+        if (t == nullptr) {
+            return;
+        }else if (t != nullptr) {
+            // Find a node
             if (height( t->right ) - height( t->left ) == ALLOWED_IMBALANCE && height( t->right->right ) >= height( t->right->left )) {
-                count++;
+                countRR++;
+                // To set the value of low and up
                 if (t->element > parent) {
-                    t->low = (int)parent + 1;
+                    t->low =(int)(t->right->element) + 1;
                     t->up = 2147483647;
-                    
                 }else{
                     t->low = (int)(t->right->element) - 1;
                     t->up = (int)parent - 1;
                 }
-            }
-            if (count == 1) {
-                if (t->low == t->up) {
-                    cout << t->low;
-                }else{
-                    cout << t->low << " to " << t->up;
+                // Output the value
+                if (countRR == 1) {
+                    cout << "The following inserts would cause a right-right rotation:" << endl;
+                    if (t->low == t->up) {
+                        cout << t->low;
+                    }else{
+                        cout << t->low << " to " << t->up;
+                    }
+                }else if(countRR > 1){
+                    cout << ", ";
+                    if (t->low == t->up) {
+                        cout << t->low;
+                    }else{
+                        cout << t->low << " to " << t->up;
+                    }
                 }
-            }else{
-                cout << ", ";
-                if (t->low == t->up) {
-                    cout << t->low;
-                }else{
-                    cout << t->low << " to " << t->up;
-                }
             }
-            right_right(t->left, t->element);
-            right_right(t->right, t->element);
         }
+        // Continue to find the node
+        right_right(t->left, t->element);
+        right_right(t->right, t->element);
     }
     
     void left_right(AVLNode * & t, const Comparable & parent){
-        int count = 0;
-        if (t != nullptr) {
-            if (height( t->left ) - height( t->right ) == ALLOWED_IMBALANCE && height( t->left->left ) < height( t->left->right )) {
-                count++;
+        if (t == nullptr) {
+            return;
+        }else if (t != nullptr) {
+            // Find a node
+            if (height(t->left) - height(t->right) == ALLOWED_IMBALANCE && height(t->left->left) < height(t->left->right)) {
+                countLR++;
+                // To set the value of low and up
                 if (t->element > parent) {
                     t->low = (int)parent + 1;
-                    t->up = 2147483647;
-                    
+                    t->up = (int)(t->left->right->element) - 1;
                 }else{
-                    t->low = (int)(t->right->element) - 1;
-                    t->up = (int)parent - 1;
+                    t->low = (int)(t->left->element) + 1;
+                    t->up = (int)(t->left->right->element) - 1;
+                }
+                // Output the value
+                if (countLR == 1) {
+                    cout << "The following inserts would cause a left-left rotation:" << endl;
+                    if (t->low == t->up) {
+                        cout << t->low;
+                    }else{
+                        cout << t->low << " to " << t->up;
+                    }
+                }else if(countLR > 1){
+                    cout << ", ";
+                    if (t->low == t->up) {
+                        cout << t->low;
+                    }else{
+                        cout << t->low << " to " << t->up;
+                    }
                 }
             }
-            if (count == 1) {
-                if (t->low == t->up) {
-                    cout << t->low;
-                }else{
-                    cout << t->low << " to " << t->up;
-                }
-            }else if(count > 1){
-                cout << ", ";
-                if (t->low == t->up) {
-                    cout << t->low;
-                }else{
-                    cout << t->low << " to " << t->up;
-                }
-            }
-            left_right(t->left, t->element);
-            left_right(t->right, t->element);
         }
+        // Continue to find the node
+        left_right(t->left, t->element);
+        left_right(t->right, t->element);
     }
     
     void right_left(AVLNode * & t, const Comparable & parent){
-        int count = 0;
-        if (t != nullptr) {
-            if (height( t->left ) - height( t->right ) == ALLOWED_IMBALANCE && height( t->left->left ) < height( t->left->right )) {
-                count++;
+        if (t == nullptr) {
+            return;
+        }else if (t != nullptr) {
+            // Find a node
+            if (height( t->right ) - height( t->left ) == ALLOWED_IMBALANCE && height( t->right->right ) < height( t->right->left )) {
+                countRL++;
+                // To set the value of low and up
                 if (t->element > parent) {
-                    t->low = (int)parent + 1;
-                    t->up = 2147483647;
-                    
+                    t->low =(int)(t->right->left->element) + 1;
+                    t->up = (int)(t->right->element) - 1;
                 }else{
-                    t->low = (int)(t->right->element) - 1;
+                    t->low = (int)(t->right->left->element) + 1;
                     t->up = (int)parent - 1;
                 }
-            }
-            if (count == 1) {
-                if (t->low == t->up) {
-                    cout << t->low;
-                }else{
-                    cout << t->low << " to " << t->up;
+                // Output the value
+                if (countRL == 1) {
+                    cout << "The following inserts would cause a right-right rotation:" << endl;
+                    if (t->low == t->up) {
+                        cout << t->low;
+                    }else{
+                        cout << t->low << " to " << t->up;
+                    }
+                }else if(countRL > 1){
+                    cout << ", ";
+                    if (t->low == t->up) {
+                        cout << t->low;
+                    }else{
+                        cout << t->low << " to " << t->up;
+                    }
                 }
-            }else{
-                cout << ", ";
-                if (t->low == t->up) {
-                    cout << t->low;
-                }else{
-                    cout << t->low << " to " << t->up;
-                }
             }
-            right_left(t->left, t->element);
-            right_left(t->right, t->element);
         }
+        // Continue to find the node
+        right_left(t->left, t->element);
+        right_left(t->right, t->element);
     }
     
     // Internal method to clone subtree
