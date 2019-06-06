@@ -381,7 +381,7 @@ private:
         }else if (t != nullptr) {
             // Find a node
             if (height( t->right ) - height( t->left ) == ALLOWED_IMBALANCE && height( t->right->right ) < height( t->right->left )) {
-                countRL++;
+                //countRL++;
                 // To set the value of low and up
                 if (t->element != parent) {
                     if (t->right->left->left != nullptr && t->right->left->right != nullptr) {
