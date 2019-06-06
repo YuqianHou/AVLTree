@@ -92,16 +92,16 @@ int main(int argc, char* argv[])
                     t.printTree();
                 }else if (command == "left-left"){
                     cout << "The following inserts would cause a left-left rotation:" << endl;
-                    
+                    t.left_left();
                 }else if (command == "left-right"){
                     cout << "The following inserts would cause a left-right rotation:" << endl;
-                    
+                    t.left_right();
                 }else if (command == "right-left"){
                     cout << "The following inserts would cause a right-left rotation:" << endl;
-                    
+                    t.right_left();
                 }else if (command == "right-right"){
                     cout << "The following inserts would cause a right-right rotation:" << endl;
-                    
+                    t.right_right();
                 }else{
                     cout << "Wrong command" << endl;
                 }

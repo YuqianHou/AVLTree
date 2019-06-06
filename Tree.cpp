@@ -76,3 +76,23 @@ template <typename Comparable>
 void AVLTree<Comparable>::remove(const Comparable & x){
     remove(x, root);
 }
+
+template <typename Comparable>
+void AVLTree<Comparable>::left_left(){
+    left_left(root, root->element);
+}
+
+template <typename Comparable>
+void AVLTree<Comparable>::right_right(){
+    right_right(root, root->element);
+}
+
+template <typename Comparable>
+void AVLTree<Comparable>::left_right(){
+    left_right(root, root->element);
+}
+
+template <typename Comparable>
+void AVLTree<Comparable>::right_left(){
+    right_left(root, root->element);
+}

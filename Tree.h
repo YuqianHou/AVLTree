@@ -35,6 +35,10 @@ public:
     void insert(const Comparable & x);
     void insert(Comparable && x);
     void remove(const Comparable & x);
+    void left_left();
+    void right_right();
+    void left_right();
+    void right_left();
     int rotation;
     int visited;
     int inserted;
@@ -316,11 +320,73 @@ private:
             right_right(t->left, t->element);
             right_right(t->right, t->element);
         }
-        
-        
     }
     
+    void left_right(AVLNode * & t, const Comparable & parent){
+        int count = 0;
+        if (t != nullptr) {
+            if (height( t->left ) - height( t->right ) == ALLOWED_IMBALANCE && height( t->left->left ) < height( t->left->right )) {
+                count++;
+                if (t->element > parent) {
+                    t->low = (int)parent + 1;
+                    t->up = 2147483647;
+                    
+                }else{
+                    t->low = (int)(t->right->element) - 1;
+                    t->up = (int)parent - 1;
+                }
+            }
+            if (count == 1) {
+                if (t->low == t->up) {
+                    cout << t->low;
+                }else{
+                    cout << t->low << " to " << t->up;
+                }
+            }else{
+                cout << ", ";
+                if (t->low == t->up) {
+                    cout << t->low;
+                }else{
+                    cout << t->low << " to " << t->up;
+                }
+            }
+            left_right(t->left, t->element);
+            left_right(t->right, t->element);
+        }
+    }
     
+    void right_left(AVLNode * & t, const Comparable & parent){
+        int count = 0;
+        if (t != nullptr) {
+            if (height( t->left ) - height( t->right ) == ALLOWED_IMBALANCE && height( t->left->left ) < height( t->left->right )) {
+                count++;
+                if (t->element > parent) {
+                    t->low = (int)parent + 1;
+                    t->up = 2147483647;
+                    
+                }else{
+                    t->low = (int)(t->right->element) - 1;
+                    t->up = (int)parent - 1;
+                }
+            }
+            if (count == 1) {
+                if (t->low == t->up) {
+                    cout << t->low;
+                }else{
+                    cout << t->low << " to " << t->up;
+                }
+            }else{
+                cout << ", ";
+                if (t->low == t->up) {
+                    cout << t->low;
+                }else{
+                    cout << t->low << " to " << t->up;
+                }
+            }
+            right_left(t->left, t->element);
+            right_left(t->right, t->element);
+        }
+    }
     
     // Internal method to clone subtree
     AVLNode * clone(AVLNode *t) const{
