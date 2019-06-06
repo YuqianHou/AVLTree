@@ -263,29 +263,31 @@ private:
                     t->up = (int)(t->left->element) - 1;
                 }else{
                     t->low = -2147483648;
-                    t->up = (int)(t->left) - 1;
+                    t->up = (int)(t->left->element) - 1;
                 }
-            }
-        }
-        if (count == 0) {
-            cout << "No inserts would cause a right-left rotation." << endl;
-        }else if (count == 1) {
-            cout << "The following inserts would cause a left-left rotation:" << endl;
-            if (t->low == t->up) {
-                cout << t->low;
-            }else{
-                cout << t->low << " to " << t->up;
-            }
-        }else{
-            cout << ", ";
-            if (t->low == t->up) {
-                cout << t->low;
-            }else{
-                cout << t->low << " to " << t->up;
+                if (count == 1) {
+                    cout << "The following inserts would cause a left-left rotation:" << endl;
+                    if (t->low == t->up) {
+                        cout << t->low;
+                    }else{
+                        cout << t->low << " to " << t->up;
+                    }
+                }else{
+                    cout << ", ";
+                    if (t->low == t->up) {
+                        cout << t->low;
+                    }else{
+                        cout << t->low << " to " << t->up;
+                    }
+                }
+                
             }
         }
         left_left(t->left, t->element);
         left_left(t->right, t->element);
+        if (count == 0) {
+            cout << "No inserts would cause a left-left rotation." << endl;
+        }
     }
     
     void right_right(AVLNode * & t, const Comparable & parent){
