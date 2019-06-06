@@ -375,10 +375,10 @@ private:
             if (height( t->right ) - height( t->left ) == ALLOWED_IMBALANCE && height( t->right->right ) < height( t->right->left )) {
                 countRL++;
                 // To set the value of low and up
-                if (t->element > parent) {
+                if (t->element >= parent) {
                     t->low =(int)(t->right->left->element) + 1;
                     t->up = (int)(t->right->element) - 1;
-                }else{
+                }else(t->element < parent){
                     t->low = (int)(t->right->left->element) + 1;
                     t->up = (int)parent - 1;
                 }
